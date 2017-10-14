@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // to avoid error -- added by fred 20170313
+		Schema::defaultStringLength(191);
+		
+		view()->composer('layouts.sidebar', function($view){
+		
+			$archives = \App\Post::archives();
+			$tags = \App\Tag::has('posts')->pluck('name');
+			$view->with(compact('archives','tags'));
+			
+		});
     }
 
     /**
