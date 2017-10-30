@@ -10,8 +10,8 @@
  $(document).ready(function(){
   $.ajax({
    url: "ip-api.com/json",
-   //dataType: "jsonp",
-   //jsonpCallback: "throwOut",
+   dataType: "jsonp",
+   jsonpCallback: "throwOut",
    success: function(rtn){ $("#test").html( JSON.stringify(rtn) ); },
    error: function(err){ $("#test").html( " statusText = " + err.statusText + " status = " + err.status); }
   });
